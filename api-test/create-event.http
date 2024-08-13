@@ -1,0 +1,9 @@
+POST http://localhost:8080/events HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Gabriel Fonseca",
+    "description": "This is a test done from an http file for testing a POST request.", 
+    "location": "A test location",
+    "dateTime": "2025-01-01T15:30:00.000Z"
+}
