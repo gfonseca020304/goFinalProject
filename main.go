@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gfonseca020304/goFinalProject/db"
 	"github.com/gfonseca020304/goFinalProject/models"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	db.InitDB()
 	fmt.Println("Some test")
 	server := gin.Default()
 
@@ -24,8 +26,8 @@ func getEvents(context *gin.Context) {
 }
 
 func createEvent(context *gin.Context) {
-	var event models.Event
-	err := context.ShouldBindJSON(&event)
+	var event models.Event                //This is an event instantiation to create one.
+	err := context.ShouldBindJSON(&event) //Binds the JSON req to the event struct.
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data.", "error:": err})
@@ -36,7 +38,7 @@ func createEvent(context *gin.Context) {
 	event.ID = 1
 	event.UserID = 1
 
-	event.Save()
+	event.Save() //This method will save the event itself
 
-	context.JSON(http.StatusCreated, gin.H{"message": "Event created!", "event": event})
+	context.JSON(http.StatusCreated, gin.H{"message": "Event created!", "event": event}) //This is how you return a response to the client.
 }
